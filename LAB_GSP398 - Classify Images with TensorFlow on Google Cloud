@@ -1,0 +1,37 @@
+#cnn_challenge_lab.ipynb
+
+#----------------------------------------------------------
+# Retrieve and set PROJECT_ID environment variables.
+# TODO: fill in PROJECT_ID.
+
+if not os.getenv("IS_TESTING"):
+    # Get your Google Cloud project ID from gcloud
+    PROJECT_ID = "REPLACE_YOUR_PROJECT_ID_HERE"
+#----------------------------------------------------------
+REGION = "REPLACE_YOU_REGION_HERE"
+#----------------------------------------------------------
+# TODO: Write the last layer.
+# Hint: KMNIST has 10 output classes.
+tf.keras.layers.Dense(10, activation=tf.nn.softmax)
+#----------------------------------------------------------
+# TODO: Save your CNN classifier. 
+# Hint: Save it to MODEL_DIR.
+model.save(MODEL_DIR)
+#----------------------------------------------------------
+# TODO: fill in the remaining arguments for the CustomTrainingJob function.
+script_path="task.py",
+container_uri=TRAIN_IMAGE,
+model_serving_container_image_uri=DEPLOY_IMAGE,
+#----------------------------------------------------------
+# TODO: fill in the remaining arguments to run the custom training job function.
+args=CMDARGS,
+machine_type=TRAIN_COMPUTE,
+#----------------------------------------------------------
+# TODO: fill in the remaining arguments to deploy the model to an endpoint.
+traffic_split=TRAFFIC_SPLIT,
+machine_type=DEPLOY_COMPUTE,
+min_replica_count=MIN_NODES,
+max_replica_count=MAX_NODES,
+#----------------------------------------------------------
+# TODO: use your Endpoint to return prediction for your x_test.
+predictions = endpoint.predict(instances=x_test.tolist())
